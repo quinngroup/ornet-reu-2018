@@ -1,0 +1,25 @@
+import numpy as np
+
+def raster_scan(video):
+    """
+    Converts a 3D video volume (with frames on the last axis) to a 2D
+    matrix (with frames as rows, and pixels as columns).
+
+    Parameters
+    ----------
+    video : array, shape (H, W, F)
+        A NumPy array with F frames, H rows, and W columns.
+
+    Returns
+    -------
+    matrix : array, shape (F, H * W)
+        Raster-scanned (row-stacked) matrix where rows are frames.
+    """
+    # Swap the spatial dimensions.
+    video = np.swapaxes(video, 0, 1)
+
+    # Reshape.
+    n_pixels = video.shape[0] * video.shape[1]
+    n_frames = video.shape[2]
+    matrix = video.reshape((n_frames, n_pixels))
+    return matrix
