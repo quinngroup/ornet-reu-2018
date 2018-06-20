@@ -16,10 +16,11 @@ def raster_scan(video):
         Raster-scanned (row-stacked) matrix where rows are frames.
     """
     # Swap the spatial dimensions.
-    video = np.swapaxes(video, 0, 1)
+    video = np.swapaxes(video, 0, 2) # Now is (F, W, H)
+    video = np.swapaxes(video, 1, 2) # Now is (F, H, W)
 
     # Reshape.
-    n_pixels = video.shape[0] * video.shape[1]
-    n_frames = video.shape[2]
+    n_pixels = video.shape[1] * video.shape[2]
+    n_frames = video.shape[0]
     matrix = video.reshape((n_frames, n_pixels))
     return matrix
