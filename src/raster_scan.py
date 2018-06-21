@@ -7,7 +7,7 @@ def raster_scan(video):
 
     Parameters
     ----------
-    video : array, shape (H, W, F)
+    video : array, shape (F, H, W)
         A NumPy array with F frames, H rows, and W columns.
 
     Returns
@@ -16,8 +16,7 @@ def raster_scan(video):
         Raster-scanned (row-stacked) matrix where rows are frames.
     """
     # Swap the spatial dimensions.
-    video = np.swapaxes(video, 0, 2) # Now is (F, W, H)
-    video = np.swapaxes(video, 1, 2) # Now is (F, H, W)
+    video = np.swapaxes(video, 1, 2) # Now is (F, W, H)
 
     # Reshape.
     n_pixels = video.shape[1] * video.shape[2]
